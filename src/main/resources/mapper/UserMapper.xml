@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spx0315.dao.UserDao">
+    <resultMap type="User" id="UserResultMap" >
+        <id property="UserId" column="id"/>
+        <result property="UserName" column="username"/>
+        <result property="UserPassword" column="password"/>
+        <result property="UserType" column="type"/>
+    </resultMap>
+    <insert id="addUser" parameterType="User">
+        INSERT INTO User(id,username,password,type) VALUE (#{UserId},#{UserName}, #{UserPassword}, #{UserType})
+    </insert>
+
+    <delete id="delUserById" parameterType="int">
+        DELETE FROM User WHERE id=#{UserID}
+    </delete>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE User
+        SET username = #{UserName},password = #{UserPassword},type = #{UserType}
+        WHERE  id = #{UserId}
+    </update>
+
+    <select id="queryById" resultType="User" parameterType="int">
+        SELECT id,username,password,type
+        FROM User
+        WHERE id=#{UserId}
+    </select>
+    <select id="queryAllUser" resultMap="UserResultMap">
+        SELECT id,username,password,type
+        FROM User
+    </select>
+
+</mapper>
